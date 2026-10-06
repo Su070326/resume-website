@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>苏煜茜 · 个人介绍 | 环境设计 · 东北林业大学</title>
+<style>
+  :root{
+    --green:#1f4d3a;
+    --green-deep:#0e2a1f;
+    --green-mid:#2c6349;
+    --green-soft:#eaf1ec;
+    --gold:#d4af6a;
+    --gold-bright:#f0d59a;
+    --gold-deep:#a9813d;
+    --cream:#f6f3ec;
+    --paper:#fbf9f4;
+    --ink:#1d2722;
+    --gray:#5d6862;
+    --line:#e6e2d7;
+    --white:#fff;
+    --shadow:0 18px 50px -18px rgba(14,42,31,.25);
+    --shadow-soft:0 8px 30px rgba(14,42,31,.08);
+    --serif:"Noto Serif SC","Songti SC","STSong",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);color:var(--ink);background:var(--cream);
+    line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{display:block;width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;position:relative;z-index:2;}
+  ::selection{background:var(--gold);color:var(--green-deep);}
+
+  /* ===== 滚动进度条 ===== */
+  #progress{
+    position:fixed;top:0;left:0;height:3px;width:0%;z-index:100;
+    background:linear-gradient(90deg,var(--gold-bright),var(--gold),var(--green-mid));
+    box-shadow:0 0 12px rgba(212,175,106,.7);
+  }
+
+  /* ===== 纸感颗粒 ===== */
+  .grain{
+    position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain 8s steps(10) infinite;
+  }
+  @keyframes grain{
+    0%,100%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}
+    40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(3%,3%)}
+  }
+
+  /* ===== 自定义光标 ===== */
+  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:120;display:none;}
+  @media(pointer:fine){.cursor-dot,.cursor-ring{display:block;}}
+  .cursor-dot{width:7px;height:7px;background:var(--gold);transform:translate(-50%,-50%);}
+  .cursor-ring{
+    width:38px;height:38px;border:1.5px solid rgba(212,175,106,.7);
+    transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s;
+  }
+  .cursor-ring.hovering{width:58px;height:58px;border-color:var(--forest-mid);background:rgba(31,77,58,.09);}
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    background:
+      radial-gradient(90% 70% at 12% 88%,rgba(76,140,110,.22),transparent 60%),
+      radial-gradient(80% 60% at 88% 12%,rgba(201,167,98,.15),transparent 60%),
+      radial-gradient(130% 120% at 75% 0%,#1c4a36 0%,#12352a 55%,#0a1e15 100%);
+    color:#fff;overflow:hidden;
+  }
+  #particles{position:absolute;inset:0;z-index:1;}
+  .aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;z-index:0;}
+  .aurora.a1{width:560px;height:560px;background:radial-gradient(circle,rgba(76,140,110,.55),transparent 70%);top:-160px;left:-120px;animation:drift1 18s ease-in-out infinite;}
+  .aurora.a2{width:480px;height:480px;background:radial-gradient(circle,rgba(201,167,98,.42),transparent 70%);bottom:-180px;right:-100px;animation:drift2 22s ease-in-out infinite;}
+  .aurora.a3{width:380px;height:380px;background:radial-gradient(circle,rgba(130,190,158,.4),transparent 70%);top:40%;left:55%;animation:drift1 26s ease-in-out infinite reverse;}
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(70px,50px) scale(1.12)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,-60px) scale(1.08)}}
+
+  .hero-ghost{
+    position:absolute;z-index:1;bottom:-30px;left:-20px;width:120%;
+    font-family:var(--serif);font-weight:900;font-size:clamp(60px,13vw,200px);
+    letter-spacing:.12em;color:transparent;-webkit-text-stroke:1px rgba(240,213,154,.16);
+    white-space:nowrap;animation:ghostmove 30s linear infinite;user-select:none;
+  }
+  @keyframes ghostmove{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}
+
+  .hero-inner{position:relative;z-index:3;display:flex;align-items:center;gap:56px;padding:90px 0 120px;flex-wrap:wrap;}
+  .avatar-box{position:relative;width:188px;height:188px;flex-shrink:0;}
+  .avatar-box .ring{
+    position:absolute;inset:-14px;border-radius:50%;
+    border:1.5px dashed rgba(240,213,154,.7);animation:spin 22s linear infinite;
+  }
+  .avatar-box .ring::after{
+    content:"";position:absolute;top:-6px;left:50%;width:11px;height:11px;border-radius:50%;
+    background:var(--gold-bright);box-shadow:0 0 14px var(--gold-bright);
+  }
+  .avatar-box .ring2{
+    position:absolute;inset:-26px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.12);animation:spin 34s linear infinite reverse;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .avatar-box img{
+    width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 18%;
+    border:3px solid rgba(255,255,255,.9);
+    box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 0 10px rgba(212,175,106,.12);
+    transition:transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .avatar-box:hover img{transform:scale(1.05);}
+
+  .hero-text{flex:1;min-width:300px;}
+  .hero-kicker{
+    display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:4px;
+    color:var(--gold-bright);text-transform:uppercase;margin-bottom:20px;opacity:0;animation:up .9s .1s forwards;
+  }
+  .hero-kicker::before{content:"";width:34px;height:1px;background:var(--gold);}
+  .hero-text h1{
+    font-family:var(--serif);font-size:clamp(46px,7vw,80px);font-weight:900;
+    letter-spacing:10px;line-height:1.1;margin-bottom:8px;
+    background:linear-gradient(120deg,#ffffff 15%,#f0e3c0 38%,#e8cf99 52%,#c9e4d4 72%,#ffffff 92%);
+    background-size:250% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shine 6s linear infinite,up .9s .25s both;
+  }
+  @keyframes shine{to{background-position:200% center}}
+  .hero-text .en{
+    font-size:13px;letter-spacing:5px;color:rgba(255,255,255,.5);
+    text-transform:uppercase;margin-bottom:20px;opacity:0;animation:up .9s .4s forwards;
+  }
+  .hero-text .intent{
+    display:inline-block;font-size:14px;color:var(--gold-bright);
+    border:1px solid rgba(212,175,106,.55);border-radius:999px;padding:6px 20px;margin-bottom:22px;
+    background:rgba(212,175,106,.08);backdrop-filter:blur(4px);
+    opacity:0;animation:up .9s .5s forwards;
+  }
+  .hero-text p.desc{
+    font-size:15.5px;color:rgba(255,255,255,.85);max-width:620px;margin-bottom:22px;
+    opacity:0;animation:up .9s .62s forwards;
+  }
+  .contacts{display:flex;flex-wrap:wrap;gap:12px 26px;font-size:14px;color:rgba(255,255,255,.92);margin-bottom:24px;opacity:0;animation:up .9s .74s forwards;}
+  .contacts span{display:inline-flex;align-items:center;gap:8px;transition:color .2s;}
+  .contacts span:hover{color:var(--gold-bright);}
+  .hero-game{
+    position:relative;display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(120deg,var(--gold-bright),var(--gold));color:var(--green-deep);
+    font-weight:700;font-size:14.5px;padding:14px 32px;border-radius:999px;
+    box-shadow:0 10px 30px rgba(212,175,106,.4);overflow:hidden;
+    opacity:0;animation:up .9s .86s forwards;transition:transform .25s,box-shadow .25s;
+  }
+  .hero-game::before{
+    content:"";position:absolute;top:0;left:-80%;width:60%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);
+    transform:skewX(-20deg);animation:sweep 3.2s ease-in-out infinite;
+  }
+  @keyframes sweep{0%,60%{left:-80%}100%{left:130%}}
+  .hero-game:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(212,175,106,.55);}
+  @keyframes up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+
+  .scroll-hint{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;
+    font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.55);text-align:center;
+  }
+  .scroll-hint .mouse{
+    width:22px;height:36px;border:1.5px solid rgba(255,255,255,.5);border-radius:12px;
+    margin:0 auto 8px;position:relative;
+  }
+  .scroll-hint .mouse::after{
+    content:"";position:absolute;top:7px;left:50%;width:3px;height:7px;margin-left:-1.5px;
+    border-radius:3px;background:var(--gold-bright);animation:wheel 1.6s ease-in-out infinite;
+  }
+  @keyframes wheel{0%{opacity:1;transform:translateY(0)}70%{opacity:0;transform:translateY(12px)}100%{opacity:0}}
+
+  /* ===== 跑马灯 ===== */
+  .marquee{
+    background:var(--forest-ink);border-top:1px solid rgba(201,167,98,.28);
+    border-bottom:1px solid rgba(201,167,98,.28);overflow:hidden;padding:16px 0;
+  }
+  .marquee-track{display:flex;align-items:center;gap:0;white-space:nowrap;animation:marquee 28s linear infinite;}
+  .marquee-track span{
+    font-family:var(--serif);font-size:17px;letter-spacing:6px;
+    padding:0 6px;margin:0 26px;color:rgba(232,207,153,.9);
+  }
+  .marquee-track b{color:rgba(201,167,98,.55);font-weight:400;}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* ================= 版块通用 ================= */
+  section{padding:96px 0 12px;}
+  .sec-title{position:relative;margin-bottom:44px;}
+  .sec-title .ghost-num{
+    position:absolute;top:-46px;right:0;font-family:var(--serif);font-weight:900;
+    font-size:120px;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(31,77,58,.13);
+    user-select:none;z-index:0;
+  }
+  .sec-title h2{
+    position:relative;z-index:1;display:flex;align-items:center;gap:16px;
+    font-family:var(--serif);font-size:30px;font-weight:900;color:var(--green-deep);letter-spacing:4px;
+  }
+  .sec-title h2::before{
+    content:"";width:8px;height:32px;border-radius:4px;
+    background:linear-gradient(var(--gold-bright),var(--gold-deep));
+    box-shadow:0 0 14px rgba(212,175,106,.5);
+  }
+  .sec-title small{font-family:var(--sans);font-size:11px;font-weight:400;color:#a8b0a6;letter-spacing:4px;text-transform:uppercase;}
+  .sec-title .title-line{height:1px;flex:1;background:linear-gradient(90deg,var(--line),transparent);margin-left:8px;}
+
+  .card{
+    position:relative;background:var(--paper);border-radius:20px;box-shadow:var(--shadow-soft);
+    padding:36px 40px;margin-bottom:24px;border:1px solid rgba(230,226,215,.8);
+    transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .45s;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;width:100%;height:3px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    transform:scaleX(0);transform-origin:left;transition:transform .6s ease;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(212,175,106,.5);}
+  .card:hover::before{transform:scaleX(1);}
+  .card-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px;}
+  .card-head h3{font-family:var(--serif);font-size:20px;color:var(--green-deep);font-weight:800;letter-spacing:1px;}
+  .card-head .date{
+    font-size:13px;color:var(--gold-deep);font-weight:600;white-space:nowrap;
+    background:rgba(212,175,106,.14);padding:3px 14px;border-radius:99px;
+  }
+  .card-sub{font-size:14px;color:var(--gray);margin-bottom:16px;}
+  .card ul{list-style:none;}
+  .card li{
+    position:relative;padding-left:24px;margin-bottom:11px;font-size:14.5px;color:#37423c;
+  }
+  .card li::before{
+    content:"";position:absolute;left:3px;top:11px;width:7px;height:7px;border-radius:2px;
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold-deep));
+    transform:rotate(45deg);box-shadow:0 0 0 3px rgba(212,175,106,.15);
+  }
+  .card li b{color:var(--green-deep);}
+
+  /* 入场 */
+  .reveal{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}
+  .reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+  .reveal.d5{transition-delay:.4s}
+
+  /* ===== 教育 ===== */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;}
+  .tag-school{
+    display:inline-block;background:linear-gradient(120deg,var(--forest),var(--forest-mid));color:#fff;
+    font-size:12px;padding:3px 12px;border-radius:6px;margin-left:10px;vertical-align:2px;letter-spacing:1px;
+  }
+
+  /* ===== 数据带 ===== */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px;}
+  .stat{
+    text-align:center;padding:26px 10px;border-radius:16px;
+    background:linear-gradient(160deg,rgba(31,77,58,.06),rgba(212,175,106,.08));
+    border:1px solid rgba(212,175,106,.25);
+    transition:transform .35s;
+  }
+  .stat:hover{transform:translateY(-5px) scale(1.03);}
+  .stat .num{
+    font-family:var(--serif);font-size:38px;font-weight:900;color:var(--green);line-height:1.1;
+  }
+  .stat .num em{font-style:normal;font-size:18px;color:var(--gold-deep);}
+  .stat p{font-size:13px;color:var(--gray);margin-top:6px;letter-spacing:1px;}
+
+  /* ===== 技能 ===== */
+  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 44px;}
+  .skill-item .skill-name{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:2px 12px;font-size:14px;margin-bottom:9px;}
+  .skill-item .skill-name b{color:var(--green-deep);font-weight:600;}
+  .skill-item .skill-name em{font-style:normal;color:#9aa39d;font-size:12.5px;}
+  .bar{height:8px;background:#ece9df;border-radius:99px;overflow:hidden;position:relative;}
+  .bar i{
+    display:block;height:100%;width:0;border-radius:99px;
+    background:linear-gradient(90deg,var(--green-mid),var(--green) 40%,var(--gold));
+    box-shadow:0 0 10px rgba(212,175,106,.5);transition:width 1.4s cubic-bezier(.2,.8,.2,1);
+    position:relative;
+  }
+  .bar i::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+    animation:barsheen 2.4s ease-in-out infinite;
+  }
+  @keyframes barsheen{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}
+  .skill-tags span{
+    font-size:13px;background:var(--paper);color:var(--green);
+    padding:7px 17px;border-radius:999px;border:1px solid #d8e3db;cursor:default;
+    transition:all .3s;
+  }
+  .skill-tags span:hover{background:var(--green);color:#fff;border-color:var(--green);transform:translateY(-2px);box-shadow:0 8px 18px rgba(31,77,58,.25);}
+
+  /* ===== 重点项目 ===== */
+  .project-feature{
+    background:linear-gradient(140deg,#10301f 0%,#1d4d37 55%,#24573f 100%);
+    color:#fff;border:none;
+  }
+  .project-feature::before{background:linear-gradient(90deg,transparent,var(--gold-bright),transparent);}
+  .project-feature h3{color:#fff;}
+  .project-feature .card-sub{color:rgba(255,255,255,.7);}
+  .project-feature li{color:rgba(255,255,255,.9);}
+  .project-feature li b{color:var(--gold-bright);}
+  .project-feature .card-head .date{background:rgba(212,175,106,.22);color:var(--gold-bright);}
+  .project-feature::after{
+    content:"";position:absolute;right:-70px;top:-70px;width:280px;height:280px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,175,106,.18),transparent 70%);pointer-events:none;
+  }
+  .game-badge{
+    display:inline-block;background:rgba(212,175,106,.2);color:var(--gold-bright);
+    border:1px solid rgba(212,175,106,.6);font-size:12px;letter-spacing:1px;
+    padding:4px 14px;border-radius:99px;margin-left:12px;vertical-align:2px;
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(212,175,106,.35)}50%{box-shadow:0 0 0 8px rgba(212,175,106,0)}}
+  .play-btn{
+    position:relative;display:inline-flex;align-items:center;gap:9px;margin-top:18px;
+    background:linear-gradient(120deg,var(--gold-bright),var(--gold));color:var(--green-deep);
+    font-weight:700;font-size:14.5px;padding:13px 34px;border-radius:999px;overflow:hidden;
+    box-shadow:0 10px 28px rgba(212,175,106,.35);transition:transform .25s,box-shadow .25s;
+  }
+  .play-btn:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(212,175,106,.5);}
+  .play-btn::before{
+    content:"";position:absolute;top:0;left:-80%;width:60%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);
+    transform:skewX(-20deg);animation:sweep 3s ease-in-out infinite;
+  }
+
+  /* ===== 画廊 ===== */
+  .gallery-block{margin-bottom:64px;}
+  .gallery-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px;}
+  .gallery-head h3{font-family:var(--serif);font-size:21px;color:var(--green-deep);font-weight:800;letter-spacing:2px;}
+  .gallery-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);min-width:60px;}
+  .gallery-cap{font-size:14px;color:var(--gray);margin-bottom:24px;}
+  .grid-art{display:grid;gap:18px;grid-template-columns:repeat(3,1fr);}
+  .grid-art .shot:nth-child(1){grid-column:span 2;grid-row:span 2;}
+  .grid-photo{columns:3;column-gap:18px;}
+  .shot{
+    position:relative;overflow:hidden;border-radius:14px;
+    box-shadow:0 8px 24px rgba(14,42,31,.14);
+    cursor:zoom-in;background:#e9e7e0;break-inside:avoid;margin-bottom:18px;
+    transform-style:preserve-3d;
+  }
+  .grid-art .shot{aspect-ratio:1/1;}
+  .grid-art .shot:nth-child(1){aspect:auto;}
+  .grid-art .shot:nth-child(1) img{height:100%;}
+  .shot img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .6s;}
+  .grid-photo .shot img{height:auto;}
+  .shot:hover img{transform:scale(1.07);filter:saturate(1.12);}
+  .shot .mask{
+    position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to top,rgba(14,42,31,.82),transparent 55%);
+    opacity:0;transition:opacity .4s ease;
+    display:flex;align-items:flex-end;padding:16px 20px;color:#fff;font-size:13.5px;letter-spacing:1.5px;
+  }
+  .shot:hover .mask{opacity:1;}
+  .shot .zoom-ico{
+    position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;
+    background:rgba(255,255,255,.9);color:var(--green-deep);pointer-events:none;
+    display:flex;align-items:center;justify-content:center;font-size:15px;
+    opacity:0;transform:scale(.5);transition:all .4s;
+  }
+  .shot:hover .zoom-ico{opacity:1;transform:scale(1);}
+
+  /* ===== 获奖 ===== */
+  .awards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .award-item{
+    display:flex;gap:14px;align-items:flex-start;font-size:14.5px;
+    background:var(--paper);border:1px dashed var(--line);border-radius:14px;padding:18px 22px;
+    transition:all .35s;
+  }
+  .award-item:hover{border-color:var(--gold);background:linear-gradient(120deg,#fff,rgba(212,175,106,.08));transform:translateX(6px);}
+  .award-item .medal{
+    font-size:20px;width:44px;height:44px;flex-shrink:0;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(140deg,rgba(212,175,106,.2),rgba(31,77,58,.1));
+  }
+  .award-item b{color:var(--green-deep);}
+  .award-item em{font-style:normal;color:#a8b0ab;font-size:13px;}
+  .cert-thumb{
+    display:block;position:relative;margin-top:12px;max-width:230px;width:60%;
+    border-radius:10px;overflow:hidden;cursor:zoom-in;
+    border:1px solid rgba(201,167,98,.55);
+    box-shadow:0 6px 18px rgba(14,42,31,.16);
+    transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s;
+  }
+  .cert-thumb:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 28px rgba(14,42,31,.26);}
+  .cert-thumb img{display:block;width:100%;height:auto;}
+  .cert-thumb .zoom-tag{
+    position:absolute;right:8px;bottom:8px;font-size:11px;letter-spacing:1px;
+    color:#fff;background:rgba(18,53,42,.78);border:1px solid rgba(232,207,153,.5);
+    padding:3px 9px;border-radius:20px;backdrop-filter:blur(2px);
+  }
+
+  /* ===== 自我评价 ===== */
+  .eval-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .eval-item{
+    position:relative;background:var(--paper);border-radius:18px;padding:26px 28px;
+    border-left:4px solid var(--gold);box-shadow:var(--shadow-soft);overflow:hidden;
+    transition:transform .4s,box-shadow .4s;
+  }
+  .eval-item:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .eval-item::after{
+    content:"";position:absolute;right:-30px;bottom:-30px;width:120px;height:120px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,175,106,.16),transparent 70%);
+    transition:transform .5s;
+  }
+  .eval-item:hover::after{transform:scale(1.5);}
+  .eval-item h4{font-family:var(--serif);font-size:17px;color:var(--green-deep);margin-bottom:8px;letter-spacing:1px;}
+  .eval-item p{font-size:14px;color:var(--gray);}
+
+  footer{
+    margin-top:90px;padding:44px 0 36px;text-align:center;position:relative;overflow:hidden;
+    background:
+      radial-gradient(60% 120% at 15% 0%,rgba(76,140,110,.22),transparent 60%),
+      radial-gradient(60% 120% at 85% 0%,rgba(201,167,98,.14),transparent 60%),
+      linear-gradient(160deg,#12352a,#0a1e15);
+    color:rgba(255,255,255,.62);
+    font-size:13px;letter-spacing:1.5px;
+  }
+  footer .big{
+    font-family:var(--serif);font-size:clamp(40px,8vw,110px);font-weight:900;letter-spacing:14px;
+    margin-bottom:14px;user-select:none;
+    background:linear-gradient(120deg,#c9e4d4,#f0e3c0,#e8cf99,#c9e4d4);
+    background-size:250% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:.6;animation:shine 8s linear infinite;
+  }
+
+  /* ===== 灯箱 ===== */
+  .lightbox{
+    position:fixed;inset:0;background:rgba(10,26,19,.93);backdrop-filter:blur(8px);
+    display:none;align-items:center;justify-content:center;z-index:110;padding:44px;cursor:zoom-out;
+  }
+  .lightbox.show{display:flex;animation:fade .3s;}
+  .lightbox img{
+    max-width:92vw;max-height:86vh;width:auto;height:auto;border-radius:10px;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);animation:zoomin .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .lightbox .close{
+    position:absolute;top:26px;right:34px;color:rgba(255,255,255,.8);font-size:30px;
+    width:48px;height:48px;border:1px solid rgba(255,255,255,.3);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;transition:all .3s;
+  }
+  .lightbox .close:hover{background:rgba(255,255,255,.12);transform:rotate(90deg);}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes zoomin{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+
+  /* ===== 回到顶部 ===== */
+  #toTop{
+    position:fixed;right:28px;bottom:28px;width:50px;height:50px;border-radius:50%;z-index:80;
+    background:linear-gradient(135deg,var(--forest),var(--forest-mid));color:var(--gold-bright);
+    display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;
+    box-shadow:0 10px 26px rgba(14,42,31,.4);opacity:0;transform:translateY(20px);pointer-events:none;
+    transition:all .35s;border:none;
+  }
+  #toTop.show{opacity:1;transform:none;pointer-events:auto;}
+  #toTop:hover{transform:translateY(-4px);}
+
+  /* ===== 音乐开关 · 黑胶唱片 ===== */
+  #musicBtn{
+    position:fixed;left:28px;bottom:28px;z-index:80;border:none;cursor:pointer;
+    width:58px;height:58px;padding:0;border-radius:50%;background:transparent;
+    filter:drop-shadow(0 10px 24px rgba(10,30,22,.45));
+  }
+  #musicBtn .disc{
+    position:relative;width:100%;height:100%;border-radius:50%;
+    background:
+      radial-gradient(circle at center,#1c4a36 0 16%,#0c1f16 16.5% 30%,#122c20 30.5% 33%,#0c1f16 33.5% 47%,#16382a 47.5% 50%,#0c1f16 50.5% 100%);
+    border:1px solid rgba(201,167,98,.55);
+    display:flex;align-items:center;justify-content:center;
+    animation:spin 9s linear infinite;animation-play-state:paused;
+  }
+  #musicBtn.playing .disc{animation-play-state:running;}
+  #musicBtn .disc::before{
+    content:"";position:absolute;inset:7px;border-radius:50%;
+    border:1px dashed rgba(232,207,153,.22);
+  }
+  #musicBtn .label{
+    width:17px;height:17px;border-radius:50%;
+    background:radial-gradient(circle,var(--gold-bright),var(--gold-deep));
+    box-shadow:0 0 0 3px rgba(201,167,98,.25);
+  }
+  #musicBtn .tonearm{
+    position:absolute;right:-7px;top:-9px;width:22px;height:34px;
+    border-right:3px solid var(--gold-bright);border-top:3px solid var(--gold-bright);
+    border-top-right-radius:14px;transform:rotate(-16deg);transform-origin:top right;
+    transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  #musicBtn.playing .tonearm{transform:rotate(6deg);}
+  #musicBtn .hint{
+    position:absolute;left:68px;top:50%;transform:translateY(-50%);
+    white-space:nowrap;font-size:12px;letter-spacing:2px;color:var(--forest-deep);
+    background:rgba(255,253,247,.92);border:1px solid rgba(201,167,98,.4);
+    padding:6px 12px;border-radius:20px;opacity:0;pointer-events:none;transition:opacity .3s;
+    box-shadow:0 6px 16px rgba(10,30,22,.15);
+  }
+  #musicBtn:hover .hint{opacity:1;}
+  #musicBtn.playing .hint{color:var(--gold-deep);}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (max-width:600px){#musicBtn{width:50px;height:50px;left:18px;bottom:18px;}#musicBtn .hint{display:none;}}
+
+  /* ============================================================
+     统一森林色板系统 · 墨绿（主色）+ 暖金（点缀）+ 青碧（同色系层次）
+     所有版块共享同一组设计 Token，仅以明度 / 饱和度制造节奏
+     ============================================================ */
+  :root{
+    --forest-ink:#0e2a1f;      /* 最深墨绿：深色背景 */
+    --forest-deep:#12352a;     /* 标题 / 强调文字 */
+    --forest:#1f4d3a;          /* 品牌主色 */
+    --forest-mid:#2e6b50;      /* 中间色：渐变 / 按钮 */
+    --forest-fresh:#4c8c6e;    /* 青碧：同色系提亮 */
+    --gold-bright:#e8cf99;     /* 亮金：深色底上的文字 */
+    --gold:#c9a762;            /* 暖金：主点缀色 */
+    --gold-deep:#9d7c3c;       /* 深金：浅底上的文字（保证对比度） */
+    --gold-soft:rgba(201,167,98,.13);
+    --forest-soft:rgba(31,77,58,.06);
+  }
+
+  /* 顶部进度条：金 → 绿 统一渐变 */
+  #progress{
+    background:linear-gradient(90deg,var(--gold-bright),var(--gold),var(--forest-mid));
+    animation:none;
+  }
+
+  /* ---- 全部版块标题 / 序号 / 卡片 / 列表 / 日期：一套语言 ---- */
+  section[data-theme] .sec-title h2{color:var(--forest-deep);}
+  section[data-theme] .sec-title h2::before{
+    background:linear-gradient(var(--gold-bright),var(--gold-deep));
+    box-shadow:0 0 14px rgba(201,167,98,.45);
+  }
+  section[data-theme] .ghost-num{-webkit-text-stroke-color:rgba(31,77,58,.13);}
+  section[data-theme] .card:hover{border-color:rgba(201,167,98,.5);}
+  section[data-theme] .card::before{background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  section[data-theme] .card-head h3{color:var(--forest-deep);}
+  section[data-theme] .card-head .date{color:var(--gold-deep);background:var(--gold-soft);}
+  section[data-theme] .card li::before{
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold-deep));
+    box-shadow:0 0 0 3px var(--gold-soft);
+  }
+  section[data-theme] .card li b{color:var(--forest-deep);}
+  section[data-theme] .gallery-head h3{color:var(--forest-deep);}
+  section[data-theme] .gallery-head .line{background:linear-gradient(90deg,var(--gold),transparent);}
+
+  /* ---- 教育区数据卡：同一色域的四个明度层次 ---- */
+  .stat:nth-child(1){background:linear-gradient(160deg,rgba(31,77,58,.09),rgba(31,77,58,.02));border-color:rgba(31,77,58,.28);}
+  .stat:nth-child(1) .num{color:var(--forest);} .stat:nth-child(1) .num em{color:var(--forest-deep);}
+  .stat:nth-child(2){background:linear-gradient(160deg,rgba(76,140,110,.12),rgba(76,140,110,.03));border-color:rgba(76,140,110,.3);}
+  .stat:nth-child(2) .num{color:#3a7359;} .stat:nth-child(2) .num em{color:#2c5d47;}
+  .stat:nth-child(3){background:linear-gradient(160deg,rgba(201,167,98,.15),rgba(201,167,98,.03));border-color:rgba(201,167,98,.38);}
+  .stat:nth-child(3) .num{color:var(--gold-deep);} .stat:nth-child(3) .num em{color:#866a33;}
+  .stat:nth-child(4){background:linear-gradient(160deg,rgba(18,53,42,.1),rgba(18,53,42,.02));border-color:rgba(18,53,42,.3);}
+  .stat:nth-child(4) .num{color:var(--forest-deep);} .stat:nth-child(4) .num em{color:#0e2a1f;}
+
+  /* ---- 技能条：六条统一「青碧 → 墨绿 → 暖金」渐变 ---- */
+  .skills-grid .skill-item .bar i{
+    background:linear-gradient(90deg,var(--forest-fresh),var(--forest) 55%,var(--gold));
+    box-shadow:0 0 10px rgba(201,167,98,.45);
+  }
+  .skills-grid .skill-item .skill-name b{color:var(--forest-deep);}
+
+  /* ---- 技能标签：统一淡绿软底，悬停深绿 ---- */
+  .skill-tags span,
+  .skill-tags span:nth-child(6n+1),.skill-tags span:nth-child(6n+2),
+  .skill-tags span:nth-child(6n+3),.skill-tags span:nth-child(6n+4),
+  .skill-tags span:nth-child(6n+5),.skill-tags span:nth-child(6n){
+    background:var(--forest-soft);color:var(--forest);
+    border-color:rgba(31,77,58,.18);
+  }
+  .skill-tags span:hover,
+  .skill-tags span:nth-child(6n+1):hover,.skill-tags span:nth-child(6n+2):hover,
+  .skill-tags span:nth-child(6n+3):hover,.skill-tags span:nth-child(6n+4):hover,
+  .skill-tags span:nth-child(6n+5):hover,.skill-tags span:nth-child(6n):hover{
+    background:var(--forest);border-color:var(--forest);color:#fff;
+    box-shadow:0 8px 18px rgba(31,77,58,.28);
+  }
+
+  /* ---- 重点项目卡：深邃墨绿 + 暖金光晕 ---- */
+  .project-feature{
+    background:
+      radial-gradient(circle at 86% 10%,rgba(201,167,98,.16),transparent 45%),
+      radial-gradient(circle at 8% 92%,rgba(76,140,110,.2),transparent 45%),
+      linear-gradient(140deg,#0e2a1f 0%,#1c4a36 55%,#23543d 100%);
+  }
+  .project-feature::before{background:linear-gradient(90deg,transparent,var(--gold-bright),var(--gold),transparent);}
+  .project-feature::after{background:radial-gradient(circle,rgba(201,167,98,.16),transparent 70%);}
+  /* 提高选择器优先级，覆盖 section[data-theme] 的深色文字规则，保证深底卡片可读性 */
+  section[data-theme] .project-feature h3,
+  section[data-theme] .project-feature .card-head h3{color:#ffffff;}
+  section[data-theme] .project-feature .card-sub{color:rgba(255,255,255,.85);}
+  section[data-theme] .project-feature li{color:rgba(255,255,255,.96);text-shadow:0 1px 3px rgba(0,0,0,.28);}
+  section[data-theme] .project-feature li b{color:var(--gold-bright);font-weight:700;}
+  section[data-theme] .project-feature .card-head .date{background:rgba(201,167,98,.22);color:var(--gold-bright);}
+  .project-feature .game-badge{
+    background:rgba(201,167,98,.16);color:var(--gold-bright);
+    border-color:rgba(201,167,98,.6);animation:pulseg 2.6s ease-in-out infinite;
+  }
+  @keyframes pulseg{0%,100%{box-shadow:0 0 0 0 rgba(201,167,98,.35)}50%{box-shadow:0 0 0 8px rgba(201,167,98,0)}}
+  .play-btn{
+    background:linear-gradient(120deg,var(--gold-bright),var(--gold));color:var(--forest-ink);
+    box-shadow:0 10px 28px rgba(201,167,98,.35);
+  }
+  .play-btn:hover{box-shadow:0 16px 38px rgba(201,167,98,.5);}
+
+  /* ---- 获奖卡：统一绿金奖章 ---- */
+  .award-item .medal,
+  .award-item:nth-child(1) .medal,.award-item:nth-child(2) .medal,
+  .award-item:nth-child(3) .medal,.award-item:nth-child(4) .medal{
+    background:linear-gradient(140deg,rgba(201,167,98,.24),rgba(31,77,58,.1));
+  }
+  .award-item:hover,
+  .award-item:nth-child(1):hover,.award-item:nth-child(2):hover,
+  .award-item:nth-child(3):hover,.award-item:nth-child(4):hover{border-color:var(--gold);}
+
+  /* ---- 自我评价：统一暖金边框 + 墨绿标题 + 金光晕 ---- */
+  .eval-item,.eval-item:nth-child(1),.eval-item:nth-child(2),
+  .eval-item:nth-child(3),.eval-item:nth-child(4){border-left-color:var(--gold);}
+  .eval-item h4,.eval-item:nth-child(1) h4,.eval-item:nth-child(2) h4,
+  .eval-item:nth-child(3) h4,.eval-item:nth-child(4) h4{color:var(--forest-deep);}
+  .eval-item::after,.eval-item:nth-child(1)::after,.eval-item:nth-child(2)::after,
+  .eval-item:nth-child(3)::after,.eval-item:nth-child(4)::after{
+    background:radial-gradient(circle,rgba(201,167,98,.16),transparent 70%);
+  }
+
+  /* ===== 响应式 ===== */
+  @media(max-width:860px){
+    .hero-inner{flex-direction:column;text-align:center;gap:40px;padding:80px 0 130px;}
+    .hero-kicker,.contacts{justify-content:center;}
+    .contacts{display:grid;grid-template-columns:1fr;gap:10px;}
+    .edu-grid,.skills-grid,.awards,.eval-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .grid-art{grid-template-columns:repeat(2,1fr);}
+    .grid-art .shot:nth-child(1){grid-column:span 2;grid-row:auto;aspect-ratio:16/10;}
+    .grid-photo{columns:2;}
+    .card{padding:26px 24px;}
+    .sec-title .ghost-num{font-size:80px;top:-30px;}
+    section{padding:70px 0 4px;}
+  }
+  @media(max-width:480px){
+    .grid-art{grid-template-columns:1fr;}
+    .grid-art .shot:nth-child(1){grid-column:span 1;}
+    .grid-photo{columns:1;}
+    .stats{grid-template-columns:1fr 1fr;}
+    .wrap{padding:0 20px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="grain"></div>
+<div class="cursor-dot" id="cDot"></div>
+<div class="cursor-ring" id="cRing"></div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="hero">
+  <canvas id="particles"></canvas>
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="hero-ghost">ART · SPACE · LIGHT · CODE · DESIGN ·&nbsp;</div>
+
+  <div class="wrap hero-inner">
+    <div class="avatar-box">
+      <div class="ring2"></div>
+      <div class="ring"></div>
+      <img src="images/avatar.jpg.jpg" alt="苏煜茜 头像" />
+    </div>
+    <div class="hero-text">
+      <div class="hero-kicker">2026 级本科新生 · 个人介绍 / FRESHMAN PORTFOLIO</div>
+      <h1>苏煜茜</h1>
+      <div class="en">SU YUQIAN · 以设计感知空间，以代码延展想象</div>
+      <span class="intent">家居与艺术设计学院 · 环境设计专业 2 班 · 团支部书记</span>
+      <p class="desc">环境设计专业本科在读，现任班级团支部书记；具备手绘、摄影与数字设计基础，已独立完成可在线游玩的网页小游戏《星际猎手 SKY AVENGER》。ESTJ 型人格，擅长组织协调与沟通推进，执行力强、做事踏实。</p>
+      <div class="contacts">
+        <span>📞 135-9842-3000</span>
+        <span>✉️ 3958542916@qq.com</span>
+        <span>🏫 东北林业大学 · 家居与艺术设计学院</span>
+      </div>
+      <a class="hero-game" href="https://mcp.edgeone.site/share/tR6DQGJJIkwE_s1VboyZ5" target="_blank" rel="noopener">
+        🎮 个人编程作品 · 《星际猎手 SKY AVENGER》
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="mouse"></div>
+    SCROLL
+  </div>
+</header>
+
+<!-- 跑马灯 -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>手绘表现</span><b>✦</b><span>空间叙事</span><b>✦</b><span>光影摄影</span><b>✦</b><span>AI 编程</span><b>✦</b><span>游戏交互</span><b>✦</b><span>视觉传达</span><b>✦</b><span>组织领导</span><b>✦</b>
+  </div>
+</div>
+
+<!-- ================= 教育背景 ================= -->
+<section class="wrap" data-theme="teal">
+  <div class="sec-title reveal">
+    <span class="ghost-num">01</span>
+    <h2>教育背景 <small>EDUCATION</small><span class="title-line"></span></h2>
+  </div>
+  <div class="card reveal d1">
+    <div class="card-head">
+      <h3>东北林业大学<span class="tag-school">211 工程 · 双一流建设高校</span></h3>
+      <span class="date">2026.09 – 2030.06（预计）</span>
+    </div>
+    <div class="card-sub">家居与艺术设计学院 · 环境设计专业（本科）｜ 环境设计 2 班 团支部书记</div>
+    <div class="edu-grid">
+      <ul>
+        <li><b>主修课程：</b>设计素描、设计色彩、平面构成、色彩构成、立体构成、设计概论、环境设计初步、制图与透视基础、空间设计表现等</li>
+        <li><b>学业表现：</b>GPA【待补】 ｜ 专业排名【待补】</li>
+      </ul>
+      <ul>
+        <li><b>学生工作：</b>入学初经班级选举任职团支书，负责全班团员管理、团组织建设与师生信息传达</li>
+        <li><b>自主学习：</b>制定"AI + 设计"学习路线，持续学习 AI 编程工具与 AIGC 设计应用，已产出可运行的游戏作品</li>
+      </ul>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num"><span data-count="100">0</span><em>%</em></div><p>团员信息准确率</p></div>
+      <div class="stat"><div class="num"><span data-count="6">0</span><em>场+</em></div><p>策划主题团日活动</p></div>
+      <div class="stat"><div class="num"><span data-count="30">0</span><em>余项</em></div><p>传达学院通知</p></div>
+      <div class="stat"><div class="num"><span data-count="95">0</span><em>%+</em></div><p>青年大学习完成率</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 专业技能 ================= -->
+<section class="wrap" data-theme="blue">
+  <div class="sec-title reveal">
+    <span class="ghost-num">02</span>
+    <h2>专业技能 <small>SKILLS</small><span class="title-line"></span></h2>
+  </div>
+  <div class="card reveal d1">
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-name"><b>手绘与设计表现</b><em>素描 / 色彩 / 速写 / Procreate</em></div>
+        <div class="bar"><i data-w="82%"></i></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><b>摄影与后期</b><em>构图光影 / LR / PS / 醒图</em></div>
+        <div class="bar"><i data-w="80%"></i></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><b>AI 编程与前端基础</b><em>HTML / CSS / JS / AI 协作开发</em></div>
+        <div class="bar"><i data-w="70%"></i></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><b>交互与视觉设计</b><em>游戏 UI / 数值 / 用户体验</em></div>
+        <div class="bar"><i data-w="72%"></i></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><b>设计软件</b><em>PS / AI / CAD / SketchUp / 3ds Max</em></div>
+        <div class="bar"><i data-w="68%"></i></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><b>组织沟通与办公</b><em>PPT / 公文写作 / 公众表达</em></div>
+        <div class="bar"><i data-w="90%"></i></div>
+      </div>
+    </div>
+    <div class="skill-tags">
+      <span>数字绘画 Procreate</span><span>Photoshop</span><span>Illustrator</span>
+      <span>AutoCAD</span><span>SketchUp</span><span>3ds Max / Enscape</span>
+      <span>Lightroom</span><span>AI 编程（Trae）</span><span>HTML / CSS / JavaScript</span>
+      <span>Canva / 稿定设计</span><span>普通话标准</span><span>CET-4 备考中</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 工作经历 ================= -->
+<section class="wrap" data-theme="coral">
+  <div class="sec-title reveal">
+    <span class="ghost-num">03</span>
+    <h2>学生工作 <small>CAMPUS ROLE</small><span class="title-line"></span></h2>
+  </div>
+  <div class="card reveal d1">
+    <div class="card-head">
+      <h3>东北林业大学 · 环境设计 2 班 ｜ 团支部书记</h3>
+      <span class="date">2026.09 – 至今</span>
+    </div>
+    <div class="card-sub">班级团组织建设负责人 · 辅导员与同学间的核心联络人</div>
+    <ul>
+      <li class="reveal"><b>快速搭建班级组织体系：</b>牵头建立全班团员信息电子台账，逐人核对团籍资料并完成组织关系转接，信息准确率达 <b>100%</b>，在学院节点前提前完成，零遗漏、零差错。</li>
+      <li class="reveal d1"><b>策划并主导主题团日活动：</b>围绕思想引领、校园文化、志愿服务独立策划班会与团日活动 <b>6 场以上</b>，统筹场地、流程、物料与主持，单场参与率保持 <b>100%</b>，班级凝聚力显著提升。</li>
+      <li class="reveal d2"><b>架设师生沟通桥梁：</b>及时传达学院通知 <b>30 余项</b>，收集反馈同学诉求，推动选课、考勤、评奖评优等事项高效落地，信息传达零延误。</li>
+      <li class="reveal d3"><b>统筹班级日常事务：</b>负责团费收缴、青年大学习督促、志愿时长登记等工作，班级"青年大学习"平均完成率保持 <b>95% 以上</b>，位列学院同年级班级前列。</li>
+      <li class="reveal d4"><b>服务师生、主动补位：</b>多次协助学院完成新生接待、讲座会务、展览布置等工作，累计服务师生【待补】人次，获得辅导员与同学一致认可。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 项目经历 ================= -->
+<section class="wrap" data-theme="violet">
+  <div class="sec-title reveal">
+    <span class="ghost-num">04</span>
+    <h2>项目经历 <small>PROJECTS</small><span class="title-line"></span></h2>
+  </div>
+
+  <div class="card project-feature reveal d1">
+    <div class="card-head">
+      <h3>《星际猎手 SKY AVENGER》网页小游戏<span class="game-badge">● 独立开发 · 已上线</span></h3>
+      <span class="date">2026.09 – 至今</span>
+    </div>
+    <div class="card-sub">玩法策划 / 视觉设计 / AI 编程开发 / 部署上线 —— 全流程独立完成</div>
+    <ul>
+      <li><b>从 0 到 1 独立立项：</b>为验证 AI 编程学习成果、探索"设计 + 技术"跨界可能，自主确定太空射击方向，完成玩法策划、战机设定、数值体系与视觉风格定义，并借助 AI 编程工具完成全部代码开发与在线部署。</li>
+      <li><b>设计完整游戏系统：</b>搭建"经典闯关 + 无尽挑战"双模式玩法，设计 <b>4 款定位差异化战机</b>（均衡散射、高伤激光、高机动减速、无人机技能流），通过速度 / 伤害 / 生命三维数值（SPD 90%–120%、DMG 7–30、HP 80–130）实现平衡性与策略深度。</li>
+      <li><b>构建成长与经济体系：</b>独立设计装备商店与金币解锁机制（战机售价 ¤800 / ¤1200 / ¤1600）、最高纪录存档系统，形成"战斗 → 积累金币 → 解锁战机 → 挑战更高分"的完整正反馈闭环。</li>
+      <li><b>打磨多端交互体验：</b>同时支持鼠标、触摸、键盘三种操作（自动开火、空格 / 双击释放大招、B 键炸弹、P 键暂停），实现 PC 与移动端无缝适配，打开链接即可游玩、无需安装。</li>
+      <li><b>项目成果：</b>游戏已上线并可公开访问，涵盖战机选择、装备商店、大招炸弹、暂停结算等完整模块；累计完成 <b>数十轮</b> AI 协作生成与调试，独立修复碰撞判定、敌机生成、数值失衡等问题，作品在同学间分享试玩并获得好评。</li>
+    </ul>
+    <a class="play-btn" href="https://mcp.edgeone.site/share/tR6DQGJJIkwE_s1VboyZ5" target="_blank" rel="noopener">▶ 立即在线试玩</a>
+  </div>
+
+  <div class="card reveal d2">
+    <div class="card-head">
+      <h3>学科竞赛备赛计划（"设计 + AI"方向）</h3>
+      <span class="date">2026.10 – 至今（进行中）</span>
+    </div>
+    <div class="card-sub">发起人 / 视觉与交互设计</div>
+    <ul>
+      <li>面向全国大学生艺术展演、"互联网+"创新创业大赛及环境设计、数字媒体类赛事，主动牵头组建跨专业备赛小组，负责团队招募、分工制定与进度管理。</li>
+      <li>依托《星际猎手》积累的 AI 编程与交互设计经验，承担视觉识别系统、展板排版与数字交互原型工作，探索 AI 生图与 AI 编程融入设计流程，预计将视觉物料产出效率提升 <b>30% 以上</b>。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 作品画廊 ================= -->
+<section class="wrap" data-theme="rose">
+  <div class="sec-title reveal">
+    <span class="ghost-num">05</span>
+    <h2>作品画廊 <small>PORTFOLIO</small><span class="title-line"></span></h2>
+  </div>
+
+  <div class="gallery-block reveal">
+    <div class="gallery-head"><h3>🎨 绘画作品 · 速写 / 线描 / 场景创作</h3><span class="line"></span></div>
+    <p class="gallery-cap">多年手绘训练积累，擅长人物动态、生活场景与自然题材，作品多次在课堂讲评中获专业教师正面评价。</p>
+    <div class="grid-art">
+      <figure class="shot">
+        <img src="images/art-draw1.jpg.jpg" alt="绘画作品：劳动者场景速写" loading="lazy" />
+        <span class="zoom-ico">⤢</span>
+        <figcaption class="mask">《建设者》场景速写 · 针管笔 + 马克笔</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/art-sketch-live1.jpg.jpg" alt="绘画作品：枯树线描" loading="lazy" />
+        <span class="zoom-ico">⤢</span>
+        <figcaption class="mask">《枯木》圆面线描写生</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/art-sketch-live2.jpg.jpg" alt="绘画作品：生活速写" loading="lazy" />
+        <span class="zoom-ico">⤢</span>
+        <figcaption class="mask">生活场景速写 · 课堂写生</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/art-sketch-live3.jpg.jpg" alt="绘画作品：人物速写" loading="lazy" />
+        <span class="zoom-ico">⤢</span>
+        <figcaption class="mask">人物动态速写练习</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/art-sketch-live4.jpg.jpg" alt="绘画作品：速写练习" loading="lazy" />
+        <span class="zoom-ico">⤢</span>
+        <figcaption class="mask">速写长期作业精选</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="gallery-block reveal">
+    <div class="gallery-head"><h3>📷 摄影作品 · "光影之间"风景系列</h3><span class="line"></span></div>
+    <p class="gallery-cap">擅长日出日落霞光、自然地貌与空间构图，独立完成踩点、拍摄、调色全流程；部分作品被班级活动宣传采用。</p>
+    <div class="grid-photo" id="photoGrid">
+      <figure class="shot"><img src="images/photo-landscape1.jpg.jpg" alt="摄影：田野晚霞" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">田野暮色 · 粉橘晚霞</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape2.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape3.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape4.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape5.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape6.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape7.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape8.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape9.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape10.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape11.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape12.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape13.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+      <figure class="shot"><img src="images/photo-landscape14.jpg.jpg" alt="摄影作品" loading="lazy"/><span class="zoom-ico">⤢</span><figcaption class="mask">光影之间 · 风景系列</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 近期成果 ================= -->
+<section class="wrap" data-theme="amber">
+  <div class="sec-title reveal">
+    <span class="ghost-num">06</span>
+    <h2>近期成果 <small>RECENT ACHIEVEMENTS</small><span class="title-line"></span></h2>
+  </div>
+  <div class="awards">
+    <div class="award-item reveal"><span class="medal">🏆</span><div><b>第一届"红星映卷"书画艺术大赛 · 全国第 13 名</b>　<em>2026</em><br>在全国性书画赛事中与众多选手同台竞技，凭借绘画作品从全国参赛者中脱颖而出，跻身全国前 15 名，专业绘画能力获赛事评审认可。</div></div>
+    <div class="award-item reveal d1"><span class="medal">🎖️</span><div><b>军训"先进个人"荣誉称号</b>　<em>2026.09</em><br>军训期间严于律己、作风过硬，高标准完成全部训练科目与纪律要求，因综合表现突出获评军训"先进个人"。</div></div>
+    <div class="award-item reveal d2"><span class="medal">🤝</span><div><b>军训班级负责人 · 军纪检查志愿者</b>　<em>2026.09</em><br>经选拔担任军训班级负责人，协助教官与辅导员统筹日常训练、点名整队与事务通知；同时担任军纪检查志愿者，主动服务师生、保障训练秩序，责任心与组织协调能力获一致好评。</div></div>
+    <div class="award-item reveal d3"><span class="medal">📜</span><div><b>阿里云达摩院"人工智能训练师（高级）"证书</b>　<em>2026.10.06</em><br>系统学习人工智能基础理论与模型训练、数据标注、调优实操等内容，完成高级培训课程并通过认证考核；将 AI 能力与设计、编程学习相结合，为"AI + 设计"方向的竞赛与项目储备跨界技能。
+      <a class="cert-thumb" href="javascript:void(0)" title="点击查看证书大图">
+        <img src="images/cert.jpg" alt="阿里云达摩院人工智能训练师（高级）证书" loading="lazy" />
+        <span class="zoom-tag">🔍 查看证书大图</span>
+      </a></div></div>
+  </div>
+</section>
+
+<!-- ================= 自我评价 ================= -->
+<section class="wrap" data-theme="pine">
+  <div class="sec-title reveal">
+    <span class="ghost-num">07</span>
+    <h2>自我评价 <small>ABOUT ME</small><span class="title-line"></span></h2>
+  </div>
+  <div class="eval-grid">
+    <div class="eval-item reveal"><h4>🚀 跨界学习与落地能力</h4><p>作为环境设计专业新生，入学后短期内自主学会使用 AI 编程工具，并独立交付一款系统完整、可在线游玩的网页游戏，具备从创意到成品的快速闭环能力。</p></div>
+    <div class="eval-item reveal d1"><h4>👑 组织领导能力突出</h4><p>ESTJ 型人格，入学即担任团支书，善于制定计划、分配任务并推动落地，能把"想法"转化为可执行的行动清单。</p></div>
+    <div class="eval-item reveal d2"><h4>🤝 沟通协作意识强</h4><p>性格热情开朗（白羊座）、乐于助人，具备良好的上下级沟通与跨团队协调能力，能在老师、同学之间高效传递信息、化解问题。</p></div>
+    <div class="eval-item reveal d3"><h4>💪 工作态度踏实</h4><p>做事认真细致、责任感强，对数值、细节与用户体验反复打磨；抗压性好，能兼顾学业、班委事务与项目开发多重任务并按时交付。</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="big">苏煜茜</div>
+  © 2026 SU YUQIAN · 东北林业大学 家居与艺术设计学院 · 环境设计<br/>
+  📞 135-9842-3000 ｜ ✉️ 3958542916@qq.com
+</footer>
+
+<button id="toTop" aria-label="回到顶部">↑</button>
+
+<!-- 背景音乐开关 -->
+<button id="musicBtn" aria-label="播放背景音乐">
+  <span class="disc"><span class="label"></span></span>
+  <span class="tonearm"></span>
+  <span class="hint">播放背景音乐</span>
+</button>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox">
+  <span class="close">×</span>
+  <img id="lightboxImg" src="" alt="作品大图" />
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 滚动进度条 ---------- */
+  var progress = document.getElementById('progress');
+  var toTop = document.getElementById('toTop');
+  function onScroll(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    progress.style.width = p + '%';
+    toTop.classList.toggle('show', h.scrollTop > 600);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  toTop.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+
+  /* ============================================================
+     氛围纯音乐引擎 · 五声音阶 generative piano + 暖垫 + 混响
+     确定性波形合成，无外部音源、无版权、峰值压限防爆音
+     ============================================================ */
+  (function(){
+    var btn = document.getElementById('musicBtn');
+    var hint = btn.querySelector('.hint');
+    var AC = window.AudioContext || window.webkitAudioContext;
+    var ctx, master, comp, reverb, dryBus, wetBus, schedTimer;
+    var started = false, playing = false;
+
+    // C 大调五声音阶（C D E G A），跨三个八度，天然和谐
+    var PENTA = [0,2,4,7,9];
+    var SCALE = [];
+    [3,4,5].forEach(function(oc){
+      PENTA.forEach(function(st){ SCALE.push(261.63*Math.pow(2,(st+(oc-4)*12)/12)); });
+    });
+    // 低音区（C2 系列）
+    var BASS = [65.41,73.42,87.31,98.00];
+    // 暖垫和弦：Cmaj7 - Am7 - Fmaj7 - G6
+    var PADS = [
+      [130.81,164.81,196.00,246.94],
+      [110.00,130.81,164.81,196.00],
+      [87.31,130.81,174.61,220.00],
+      [98.00,123.47,146.83,196.00]
+    ];
+
+    function makeIR(dur, decay){
+      var rate = ctx.sampleRate || 44100, len = rate*dur;
+      var ir = ctx.createBuffer(2, len, rate);
+      for(var c=0;c<2;c++){
+        var d = ir.getChannelData(c);
+        for(var i=0;i<len;i++){
+          d[i] = (Math.random()*2-1)*Math.pow(1-i/len, decay);
+        }
+      }
+      return ir;
+    }
+
+    function initAudio(){
+      ctx = new AC();
+      comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -20; comp.knee.value = 22;
+      comp.ratio.value = 4; comp.attack.value = .004; comp.release.value = .22;
+      master = ctx.createGain(); master.gain.value = 0;
+      master.connect(comp); comp.connect(ctx.destination);
+
+      dryBus = ctx.createGain(); dryBus.gain.value = .82; dryBus.connect(master);
+      wetBus = ctx.createGain(); wetBus.gain.value = .32; wetBus.connect(master);
+      convolverSetup();
+    }
+    var conv;
+    function convolverSetup(){
+      conv = ctx.createConvolver();
+      conv.buffer = makeIR(3.2, 2.6);
+      conv.connect(wetBus);
+    }
+
+    // 单音「钢琴」：基频 + 温和谐波，软包络 + 低通，避免 click/毛刺
+    function playNote(freq, t, peak, dur){
+      var g = ctx.createGain();
+      var lp = ctx.createBiquadFilter();
+      lp.type='lowpass'; lp.frequency.value = Math.min(freq*7, 5200); lp.Q.value = .4;
+      lp.connect(g); g.connect(dryBus); g.connect(conv);
+
+      var o1 = ctx.createOscillator(); o1.type='sine'; o1.frequency.value=freq;
+      var o2 = ctx.createOscillator(); o2.type='triangle'; o2.frequency.value=freq*2;
+      var o3 = ctx.createOscillator(); o3.type='sine'; o3.frequency.value=freq*3.001;
+      var g2 = ctx.createGain(); g2.gain.value=.10;
+      var g3 = ctx.createGain(); g3.gain.value=.035;
+      o1.connect(lp); o2.connect(g2); g2.connect(lp); o3.connect(g3); g3.connect(lp);
+
+      g.gain.setValueAtTime(.0001,t);
+      g.gain.exponentialRampToValueAtTime(peak, t+.012);
+      g.gain.exponentialRampToValueAtTime(peak*.55, t+.35);
+      g.gain.exponentialRampToValueAtTime(.0001, t+dur);
+      [o1,o2,o3].forEach(function(o){o.start(t);o.stop(t+dur+.05);});
+    }
+
+    // 暖垫：缓慢起伏的多音 detuned 衬底
+    var padIdx = 0;
+    function playPad(t){
+      var chord = PADS[padIdx++ % PADS.length];
+      var swell = ctx.createGain();
+      var lp = ctx.createBiquadFilter();
+      lp.type='lowpass'; lp.frequency.value=900; lp.Q.value=.2;
+      swell.connect(lp); lp.connect(dryBus); lp.connect(conv);
+      swell.gain.setValueAtTime(.0001,t);
+      swell.gain.exponentialRampToValueAtTime(.05, t+3.5);
+      swell.gain.exponentialRampToValueAtTime(.0001, t+11.5);
+      chord.forEach(function(f,i){
+        [-4,4].forEach(function(cents){
+          var o = ctx.createOscillator(); o.type='sine';
+          o.frequency.value=f; o.detune.value=cents;
+          o.connect(swell); o.start(t); o.stop(t+12);
+        });
+      });
+    }
+
+    // 分解和弦：当前和弦音（高八度）按固定指型轻柔拨奏
+    var ARP_PAT = [0,2,3,2,1,3,2,0];
+    function playArpeggio(chord, t, idx){
+      var tone = chord[ARP_PAT[idx % ARP_PAT.length]] * 2;
+      playNote(tone, t, .052, 1.9);
+      // 每四拍叠加一个低八度根音/五音，加厚和声
+      if(idx % 4 === 0) playNote(chord[0], t, .045, 2.4);
+    }
+
+    // 前瞻调度器
+    var nextTime = 0, step = 0;
+    function scheduler(){
+      if(!playing) return;
+      var ahead = ctx.currentTime + 1.2;
+      while(nextTime < ahead){
+        var bar = step % 16;
+        var chordIdx = Math.floor(step/16) % PADS.length;
+        // 主旋律：稀疏琶音
+        playNote(SCALE[weightedPick()], nextTime, .10+Math.random()*.05, 2.6+Math.random()*1.4);
+        if(Math.random()>.55){
+          playNote(SCALE[weightedPick()], nextTime+.42, .07, 2.2);
+        }
+        // 分解和弦：跟随 Cmaj7-Am7-Fmaj7-G6 走向
+        playArpeggio(PADS[chordIdx], nextTime+.06, step);
+        // 低音：每 8 步一次
+        if(bar%8===0){
+          playNote(BASS[chordIdx] || BASS[0], nextTime, .085, 3.6);
+        }
+        // 暖垫：每 16 步换一次和弦
+        if(bar===0) playPad(nextTime);
+        nextTime += .82 + Math.random()*.62;
+        step++;
+      }
+    }
+    function weightedPick(){
+      // 中间八度权重更高，旋律更稳
+      var r=Math.random();
+      if(r<.18) return Math.floor(Math.random()*5);
+      if(r<.82) return 5+Math.floor(Math.random()*5);
+      return 10+Math.floor(Math.random()*5);
+    }
+
+    function startMusic(){
+      if(!started){ initAudio(); started=true; }
+      if(ctx.state==='suspended') ctx.resume();
+      playing = true;
+      nextTime = ctx.currentTime + .15; step = 0;
+      scheduler(); schedTimer = setInterval(scheduler, 220);
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(Math.max(master.gain.value,.0001), ctx.currentTime);
+      master.gain.exponentialRampToValueAtTime(.85, ctx.currentTime+2.6);
+      btn.classList.add('playing');
+      btn.setAttribute('aria-label','暂停背景音乐');
+      hint.textContent = '暂停背景音乐';
+    }
+    function stopMusic(){
+      playing = false;
+      clearInterval(schedTimer);
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime+1.1);
+      btn.classList.remove('playing');
+      btn.setAttribute('aria-label','播放背景音乐');
+      hint.textContent = '播放背景音乐';
+    }
+
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      playing ? stopMusic() : startMusic();
+    });
+
+    // 浏览器自动播放策略：首次点击页面任意处时，轻柔淡入
+    var firstGesture = function(){
+      if(!playing){ startMusic(); }
+      document.removeEventListener('pointerdown', firstGesture);
+      document.removeEventListener('keydown', firstGesture);
+    };
+    document.addEventListener('pointerdown', firstGesture);
+    document.addEventListener('keydown', firstGesture);
+  })();
+
+  /* ---------- 跑马灯内容复制 ---------- */
+  var track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML;
+
+  /* ---------- 入场动画 ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        /* 技能条 */
+        e.target.querySelectorAll('.bar i').forEach(function(bar){
+          bar.style.width = bar.getAttribute('data-w');
+        });
+        /* 数字滚动 */
+        e.target.querySelectorAll('[data-count]').forEach(function(el){
+          if(el.dataset.done) return;
+          el.dataset.done = "1";
+          var target = parseInt(el.getAttribute('data-count'),10);
+          if(reduceMotion){ el.textContent = target; return; }
+          var start = null, dur = 1400;
+          function tick(t){
+            if(!start) start = t;
+            var p2 = Math.min((t-start)/dur,1);
+            var ease = 1 - Math.pow(1-p2,3);
+            el.textContent = Math.round(target*ease);
+            if(p2<1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal,.card,.stat').forEach(function(el){ io.observe(el); });
+
+  /* ---------- 灯箱 ---------- */
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightboxImg');
+  function openLB(src){ lbImg.src = src; lb.classList.add('show'); }
+  function closeLB(){ lb.classList.remove('show'); lbImg.src=''; }
+  document.querySelectorAll('.shot').forEach(function(shot){
+    var img = shot.querySelector('img');
+    shot.addEventListener('click', function(){ if(img) openLB(img.src); });
+  });
+  lb.addEventListener('click', closeLB);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLB(); });
+  document.querySelectorAll('.cert-thumb').forEach(function(el){
+    var img = el.querySelector('img');
+    el.addEventListener('click', function(e){ e.stopPropagation(); if(img) openLB(img.src); });
+  });
+
+  /* ---------- 画廊 3D 倾斜 ---------- */
+  if(!reduceMotion && window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.shot').forEach(function(shot){
+      shot.addEventListener('mousemove', function(ev){
+        var r = shot.getBoundingClientRect();
+        var x = (ev.clientX-r.left)/r.width - .5;
+        var y = (ev.clientY-r.top)/r.height - .5;
+        shot.style.transform = 'perspective(700px) rotateY('+(x*6)+'deg) rotateX('+(-y*6)+'deg) translateY(-4px)';
+      });
+      shot.addEventListener('mouseleave', function(){ shot.style.transform=''; });
+    });
+  }
+
+  /* ---------- 自定义光标 ---------- */
+  var dot = document.getElementById('cDot'), ring = document.getElementById('cRing');
+  if(window.matchMedia('(pointer:fine)').matches && !reduceMotion){
+    var mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+    document.addEventListener('mousemove', function(e){
+      mx=e.clientX;my=e.clientY;
+      dot.style.left=mx+'px';dot.style.top=my+'px';
+    });
+    (function follow(){
+      rx+=(mx-rx)*.16;ry+=(my-ry)*.16;
+      ring.style.left=rx+'px';ring.style.top=ry+'px';
+      requestAnimationFrame(follow);
+    })();
+    document.querySelectorAll('a,button,.shot,.skill-tags span,.award-item').forEach(function(el){
+      el.addEventListener('mouseenter',function(){ring.classList.add('hovering');});
+      el.addEventListener('mouseleave',function(){ring.classList.remove('hovering');});
+    });
+  } else { dot.style.display='none';ring.style.display='none'; }
+
+  /* ---------- Hero 视差 ---------- */
+  var heroInner = document.querySelector('.hero-inner');
+  var auroras = document.querySelectorAll('.aurora');
+  if(!reduceMotion){
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      if(y < innerHeight){
+        heroInner.style.transform = 'translateY('+(y*.18)+'px)';
+        heroInner.style.opacity = Math.max(1 - y/(innerHeight*.75),.15);
+        auroras.forEach(function(a,i){ a.style.transformBase = 1; });
+      }
+    },{passive:true});
+  }
+
+  /* ---------- 粒子星空 ---------- */
+  var canvas = document.getElementById('particles');
+  var ctx = canvas.getContext('2d');
+  var W,H,particles=[];
+  var PALETTE = [
+    [232,207,153],[190,226,207],[150,205,178],
+    [226,238,228],[201,167,98],[130,190,158]
+  ];
+  function resize(){
+    var hero = document.getElementById('hero');
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+  function initParticles(){
+    resize();
+    var n = Math.min(90, Math.floor(W*H/16000));
+    particles = [];
+    for(var i=0;i<n;i++){
+      particles.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.8+.4,
+        vx:(Math.random()-.5)*.25, vy:-(Math.random()*.35+.08),
+        a:Math.random()*.5+.2,
+        c:Math.floor(Math.random()*PALETTE.length),
+        tw:Math.random()*Math.PI*2
+      });
+    }
+  }
+  var mousePX=-999,mousePY=-999;
+  canvas.parentElement.addEventListener('mousemove',function(e){
+    var r=canvas.getBoundingClientRect();
+    mousePX=(e.clientX-r.left-W/2)/W;
+    mousePY=(e.clientY-r.top-H/2)/H;
+  });
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;p.tw+=.02;
+      if(p.y<-10){p.y=H+10;p.x=Math.random()*W;}
+      if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;
+      var ox = mousePX*30*(p.r+1), oy = mousePY*30*(p.r+1);
+      var alpha = p.a*(.65+.35*Math.sin(p.tw));
+      var col = PALETTE[p.c];
+      ctx.beginPath();
+      ctx.arc(p.x+ox,p.y+oy,p.r,0,Math.PI*2);
+      ctx.fillStyle = 'rgba('+col[0]+','+col[1]+','+col[2]+','+alpha+')';
+      ctx.shadowBlur = p.r*5;
+      ctx.shadowColor = 'rgba('+col[0]+','+col[1]+','+col[2]+',.8)';
+      ctx.fill();
+    });
+    ctx.shadowBlur=0;
+    /* 连线 */
+    for(var i=0;i<particles.length;i++){
+      for(var j=i+1;j<particles.length;j++){
+        var a=particles[i],b=particles[j];
+        var dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<110){
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle='rgba(232,207,153,'+(0.10*(1-d/110))+')';
+          ctx.lineWidth=.6;ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', initParticles);
+  initParticles();
+  if(!reduceMotion) draw();
+  else { /* 静态绘制一帧 */ draw(); cancelAnimationFrame(0); }
+})();
+</script>
+</body>
+</html>
